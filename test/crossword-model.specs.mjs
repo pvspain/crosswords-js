@@ -1,5 +1,9 @@
 import { expect } from 'chai';
-import { newCrosswordModel } from '../src/crossword-model.mjs';
+import {
+  newCrosswordModel,
+  newCrosswordSource,
+  newCrosswordDefinition,
+} from '../src/crossword-model.mjs';
 
 // mocha requires 'assert' for json imports but eslint (ecma version 13) throws parsing error...
 //  import quiptic89 from '../data/quiptic89.json' assert { type: "json" };
@@ -22,6 +26,26 @@ const { width, height, acrossClues, downClues } = quiptic89;
 const mimetype = 'application/vnd.js-crossword';
 const version = '1.0';
 const document = { mimetype, version };
+
+describe('newCrossswordSource()', () => {
+  it('should produce a minimal crosswordDefinition encoded as a JSON string', () => {
+    const crosswordSource = newCrosswordSource();
+    expect(crosswordSource).to.be.a('string');
+    const crosswordDefinition = newCrosswordDefinition(
+      'application/json',
+      crosswordSource,
+    );
+    const cd = crosswordDefinition;
+    expect(cd).is.not.null;
+    expect(!!cd.document).is.true;
+    expect(cd.document.mimetype).to.eql(mimetype);
+    expect(cd.document.version).to.eql(version);
+    expect(cd.width).to.eql(0);
+    expect(cd.height).to.eql(0);
+    expect(cd.acrossClues).to.eql([]);
+    expect(cd.downClues).to.eql([]);
+  });
+});
 
 describe('newCrosswordModel()', () => {
   it('should return null if crosswordDefinition is not provided', () => {

@@ -9,6 +9,7 @@ import {
   newCrosswordModel as compileCrossword,
   convertSourceFileToDefinition,
   newCrosswordDefinition,
+  newCrosswordSource,
 } from "./crossword-model.mjs";
 import { assert, ecs, eid, trace, tracing } from "./helpers.mjs";
 
@@ -21,6 +22,7 @@ const helpers = {
 };
 
 export {
+  newCrosswordSource, // Create a new minimal CrosswordSource string in JSON format.
   newCrosswordDefinition, // Create a new CrosswordDefinition input and validate its structure.
   convertSourceFileToDefinition, // Create a CrosswordDefinition from a filesystem path to a crossword source file (.json, .yml).
   // NOTE: This function accesses the local file system, and is therefore typically limited to server-side code.

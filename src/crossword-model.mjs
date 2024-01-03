@@ -2,6 +2,31 @@ import yaml from 'js-yaml';
 import { newClueModel } from './clue-model.mjs';
 import { assert, setLetter, trace } from './helpers.mjs';
 
+// Helper function to build a CrosswordSource
+
+/**
+ * **newCrosswordSource**: Build a minimal crossword
+ * definition, encoded as a JSON string, containing
+ * mandatory properties only.
+ * @returns a JSON string
+ */
+
+function newCrosswordSource() {
+  // Mandatory properties only
+  const crosswordSource = {
+    document: {
+      mimetype: 'application/vnd.js-crossword',
+      version: '1.0',
+    },
+    width: 0,
+    height: 0,
+    acrossClues: [],
+    downClues: [],
+  };
+  // Emit as JSON string
+  return JSON.stringify(crosswordSource);
+}
+
 /**
  * **newCrosswordModel**: build a crossword model from a crosswordDefinition object.
  * - The function compiles a JSON crossword and emits diagnostic exceptions when errors are encountered.
@@ -521,4 +546,5 @@ export {
   isWordSeparatorIndex,
   newCrosswordDefinition,
   newCrosswordModel,
+  newCrosswordSource,
 };
