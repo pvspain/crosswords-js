@@ -1,5 +1,12 @@
 // Lightweight helper functions.
 
+const isTruthy = (arg) => !!arg;
+const isNumber = (arg) => typeof arg === 'number';
+const isString = (arg) => typeof arg === 'string';
+const isArray = (arg) => Array.isArray(arg);
+const isObject = (arg) =>
+  isTruthy(arg) && !(isNumber(arg) || isString(arg) || isArray(arg));
+
 /**
  * **addClass** - add a [CSS](https://en.wikipedia.org/wiki/CSS) class to a
  * [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) element.
@@ -158,13 +165,25 @@ const toHexString = (obj) => {
 
 // module scope variable to toggle log tracing
 let tracingEnabled = false;
+let tracingThreshold = null;
+const tracingConfig = {
+  levels: ['log', 'warn', 'error'],
+  handles: {
+    log: process.stdout,
+    warn: process.stdout,
+    error: process.stderr,
+  },
+};
 
 /**
  * **tracing** - enable or disable console logging
  * @param {*} enabled logging is on/off
  */
-const tracing = (enabled) => {
-  tracingEnabled = enabled;
+const tracing = (enabled, threshold = 'log') => {
+  tracingEnabled = !!enabled;
+  if (tracingEnabled) {
+    tracingThreshold = tracingConfig.levels.indexOf(threshold);
+  }
 };
 
 /**
@@ -173,12 +192,23 @@ const tracing = (enabled) => {
  * @param message - string to be logged
  */
 const trace = (message, action = 'log') => {
-  if (tracingEnabled) {
-    assert(
-      ['log', 'warn', 'error'].includes(action),
-      `Unsupported action'${action}'.`,
-    );
-    console[action](message);
+  assert(
+    tracingConfig.levels.includes(action),
+    `Unsupported action'${action}'.`,
+  );
+
+  if (
+    tracingEnabled &&
+    typeof tracingThreshold === 'number' &&
+    tracingConfig.levels.indexOf(action) >= tracingThreshold
+  ) {
+    if (typeof window !== 'undefined') {
+      console[action](message);
+    } else {
+      tracingConfig.handles[action].write(
+        `${action.toUpperCase()}: ${message}\n`,
+      );
+    }
   }
 };
 
@@ -231,6 +261,11 @@ export {
   ecs,
   eid,
   first,
+  isArray,
+  isNumber,
+  isObject,
+  isString,
+  isTruthy,
   last,
   memoize,
   newPubSub,
