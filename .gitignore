@@ -19,3 +19,6 @@ git-rebase-todo*
 
 # VS Code CLI - enable remote tunnels
 code
+
+# Triangular workflow artifact
+triangular.config
