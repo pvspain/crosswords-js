@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
-# Change PWD to parent dir of this script (repository root)
-pushd $(dirname "$0")/.. >/dev/null
+# https://stackoverflow.com/a/1482133
+scriptPath=$( dirname -- "$( readlink -f -- "$0"; )"; )
+# Change PWD to parent dir of scriptPath (repository root)
+pushd $scriptPath/.. >/dev/null
 
 # This works for standard repo or submodule
 gitDir=$(git rev-parse --git-dir)
