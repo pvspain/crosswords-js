@@ -166,14 +166,14 @@ const toHexString = (obj) => {
 // module scope variable to toggle log tracing
 let tracingEnabled = false;
 let tracingThreshold = null;
-const tracingConfig = {
-  levels: ['log', 'warn', 'error'],
-  handles: {
+const tracingConfig = { levels: ['log', 'warn', 'error'] };
+if (typeof window === 'undefined') {
+  tracingConfig.handles = {
     log: process.stdout,
     warn: process.stdout,
     error: process.stderr,
-  },
-};
+  };
+}
 
 /**
  * **tracing** - enable or disable console logging

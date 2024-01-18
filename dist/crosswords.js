@@ -42,20 +42,19 @@ function oe(e, n, r) {
   return i = i.padEnd(n + 1, " "), Jr(i, n, r);
 }
 let ze = !1, Xe = null;
-const _e = {
-  levels: ["log", "warn", "error"],
-  handles: {
-    log: process.stdout,
-    warn: process.stdout,
-    error: process.stderr
-  }
-}, ei = (e, n = "log") => {
-  ze = !!e, ze && (Xe = _e.levels.indexOf(n));
+const de = { levels: ["log", "warn", "error"] };
+typeof window > "u" && (de.handles = {
+  log: process.stdout,
+  warn: process.stdout,
+  error: process.stderr
+});
+const ei = (e, n = "log") => {
+  ze = !!e, ze && (Xe = de.levels.indexOf(n));
 }, x = (e, n = "log") => {
   d(
-    _e.levels.includes(n),
+    de.levels.includes(n),
     `Unsupported action'${n}'.`
-  ), ze && typeof Xe == "number" && _e.levels.indexOf(n) >= Xe && (typeof window < "u" ? console[n](e) : _e.handles[n].write(
+  ), ze && typeof Xe == "number" && de.levels.indexOf(n) >= Xe && (typeof window < "u" ? console[n](e) : de.handles[n].write(
     `${n.toUpperCase()}: ${e}
 `
   ));
@@ -467,15 +466,15 @@ function nr(e, n) {
 
 ` + e.mark.snippet), i + " " + r) : i;
 }
-function de(e, n) {
+function he(e, n) {
   Error.call(this), this.name = "YAMLException", this.reason = e, this.mark = n, this.message = nr(this, !1), Error.captureStackTrace ? Error.captureStackTrace(this, this.constructor) : this.stack = new Error().stack || "";
 }
-de.prototype = Object.create(Error.prototype);
-de.prototype.constructor = de;
-de.prototype.toString = function(n) {
+he.prototype = Object.create(Error.prototype);
+he.prototype.constructor = he;
+he.prototype.toString = function(n) {
   return this.name + ": " + nr(this, n);
 };
-var O = de;
+var O = he;
 function Ge(e, n, r, i, l) {
   var t = "", o = "", u = Math.floor(l / 2) - 1;
   return i - n > u && (t = " ... ", n = i - u + t.length), r - i > u && (o = " ...", r = i + u - o.length), {
@@ -1452,7 +1451,7 @@ function Bl(e, n) {
 var jl = Ml, Hl = Bl, kr = {
   loadAll: jl,
   load: Hl
-}, Ir = Object.prototype.toString, Or = Object.prototype.hasOwnProperty, fn = 65279, Pl = 9, he = 10, Ul = 13, Yl = 32, Kl = 33, Vl = 34, Je = 35, ql = 37, Gl = 38, Wl = 39, Ql = 42, Fr = 44, zl = 45, $e = 58, Xl = 61, Zl = 62, Jl = 63, et = 64, Nr = 91, $r = 93, nt = 96, Rr = 123, rt = 124, Dr = 125, L = {};
+}, Ir = Object.prototype.toString, Or = Object.prototype.hasOwnProperty, fn = 65279, Pl = 9, pe = 10, Ul = 13, Yl = 32, Kl = 33, Vl = 34, Je = 35, ql = 37, Gl = 38, Wl = 39, Ql = 42, Fr = 44, zl = 45, $e = 58, Xl = 61, Zl = 62, Jl = 63, et = 64, Nr = 91, $r = 93, nt = 96, Rr = 123, rt = 124, Dr = 125, L = {};
 L[0] = "\\0";
 L[7] = "\\a";
 L[8] = "\\b";
@@ -1506,9 +1505,9 @@ function ot(e) {
     throw new O("code point within a string may not be greater than 0xFFFFFFFF");
   return "\\" + r + S.repeat("0", i - n.length) + n;
 }
-var ut = 1, pe = 2;
+var ut = 1, me = 2;
 function st(e) {
-  this.schema = e.schema || sn, this.indent = Math.max(1, e.indent || 2), this.noArrayIndent = e.noArrayIndent || !1, this.skipInvalid = e.skipInvalid || !1, this.flowLevel = S.isNothing(e.flowLevel) ? -1 : e.flowLevel, this.styleMap = tt(this.schema, e.styles || null), this.sortKeys = e.sortKeys || !1, this.lineWidth = e.lineWidth || 80, this.noRefs = e.noRefs || !1, this.noCompatMode = e.noCompatMode || !1, this.condenseFlow = e.condenseFlow || !1, this.quotingType = e.quotingType === '"' ? pe : ut, this.forceQuotes = e.forceQuotes || !1, this.replacer = typeof e.replacer == "function" ? e.replacer : null, this.implicitTypes = this.schema.compiledImplicit, this.explicitTypes = this.schema.compiledExplicit, this.tag = null, this.result = "", this.duplicates = [], this.usedDuplicates = null;
+  this.schema = e.schema || sn, this.indent = Math.max(1, e.indent || 2), this.noArrayIndent = e.noArrayIndent || !1, this.skipInvalid = e.skipInvalid || !1, this.flowLevel = S.isNothing(e.flowLevel) ? -1 : e.flowLevel, this.styleMap = tt(this.schema, e.styles || null), this.sortKeys = e.sortKeys || !1, this.lineWidth = e.lineWidth || 80, this.noRefs = e.noRefs || !1, this.noCompatMode = e.noCompatMode || !1, this.condenseFlow = e.condenseFlow || !1, this.quotingType = e.quotingType === '"' ? me : ut, this.forceQuotes = e.forceQuotes || !1, this.replacer = typeof e.replacer == "function" ? e.replacer : null, this.implicitTypes = this.schema.compiledImplicit, this.explicitTypes = this.schema.compiledExplicit, this.tag = null, this.result = "", this.duplicates = [], this.usedDuplicates = null;
 }
 function Sn(e, n) {
   for (var r = S.repeat(" ", n), i = 0, l = -1, t = "", o, u = e.length; i < u; )
@@ -1531,11 +1530,11 @@ function ct(e, n) {
 function Re(e) {
   return e === Yl || e === Pl;
 }
-function me(e) {
+function ge(e) {
   return 32 <= e && e <= 126 || 161 <= e && e <= 55295 && e !== 8232 && e !== 8233 || 57344 <= e && e <= 65533 && e !== fn || 65536 <= e && e <= 1114111;
 }
 function Tn(e) {
-  return me(e) && e !== fn && e !== Ul && e !== he;
+  return ge(e) && e !== fn && e !== Ul && e !== pe;
 }
 function _n(e, n, r) {
   var i = Tn(e), l = i && !Re(e);
@@ -1548,7 +1547,7 @@ function _n(e, n, r) {
   );
 }
 function at(e) {
-  return me(e) && e !== fn && !Re(e) && e !== zl && e !== Jl && e !== $e && e !== Fr && e !== Nr && e !== $r && e !== Rr && e !== Dr && e !== Je && e !== Gl && e !== Ql && e !== Kl && e !== rt && e !== Xl && e !== Zl && e !== Wl && e !== Vl && e !== ql && e !== et && e !== nt;
+  return ge(e) && e !== fn && !Re(e) && e !== zl && e !== Jl && e !== $e && e !== Fr && e !== Nr && e !== $r && e !== Rr && e !== Dr && e !== Je && e !== Gl && e !== Ql && e !== Kl && e !== rt && e !== Xl && e !== Zl && e !== Wl && e !== Vl && e !== ql && e !== et && e !== nt;
 }
 function ft(e) {
   return !Re(e) && e !== $e;
@@ -1566,29 +1565,29 @@ function dt(e, n, r, i, l, t, o, u) {
   var s, c = 0, f = null, a = !1, m = !1, g = i !== -1, C = -1, y = at(ce(e, 0)) && ft(ce(e, e.length - 1));
   if (n || o)
     for (s = 0; s < e.length; c >= 65536 ? s += 2 : s++) {
-      if (c = ce(e, s), !me(c))
+      if (c = ce(e, s), !ge(c))
         return J;
       y = y && _n(c, f, u), f = c;
     }
   else {
     for (s = 0; s < e.length; c >= 65536 ? s += 2 : s++) {
-      if (c = ce(e, s), c === he)
+      if (c = ce(e, s), c === pe)
         a = !0, g && (m = m || // Foldable line = too long, and not more-indented.
         s - C - 1 > i && e[C + 1] !== " ", C = s);
-      else if (!me(c))
+      else if (!ge(c))
         return J;
       y = y && _n(c, f, u), f = c;
     }
     m = m || g && s - C - 1 > i && e[C + 1] !== " ";
   }
-  return !a && !m ? y && !o && !l(e) ? Br : t === pe ? J : nn : r > 9 && Mr(e) ? J : o ? t === pe ? J : nn : m ? Hr : jr;
+  return !a && !m ? y && !o && !l(e) ? Br : t === me ? J : nn : r > 9 && Mr(e) ? J : o ? t === me ? J : nn : m ? Hr : jr;
 }
 function ht(e, n, r, i, l) {
   e.dump = function() {
     if (n.length === 0)
-      return e.quotingType === pe ? '""' : "''";
+      return e.quotingType === me ? '""' : "''";
     if (!e.noCompatMode && (it.indexOf(n) !== -1 || lt.test(n)))
-      return e.quotingType === pe ? '"' + n + '"' : "'" + n + "'";
+      return e.quotingType === me ? '"' + n + '"' : "'" + n + "'";
     var t = e.indent * Math.max(1, r), o = e.lineWidth === -1 ? -1 : Math.max(Math.min(e.lineWidth, 40), e.lineWidth - t), u = i || e.flowLevel > -1 && r >= e.flowLevel;
     function s(c) {
       return ct(e, c);
@@ -1655,7 +1654,7 @@ function In(e, n) {
 }
 function mt(e) {
   for (var n = "", r = 0, i, l = 0; l < e.length; r >= 65536 ? l += 2 : l++)
-    r = ce(e, l), i = L[r], !i && me(r) ? (n += e[l], r >= 65536 && (n += e[l + 1])) : n += i || ot(r);
+    r = ce(e, l), i = L[r], !i && ge(r) ? (n += e[l], r >= 65536 && (n += e[l + 1])) : n += i || ot(r);
   return n;
 }
 function gt(e, n, r) {
@@ -1667,7 +1666,7 @@ function gt(e, n, r) {
 function On(e, n, r, i) {
   var l = "", t = e.tag, o, u, s;
   for (o = 0, u = r.length; o < u; o += 1)
-    s = r[o], e.replacer && (s = e.replacer.call(r, String(o), s)), (j(e, n + 1, s, !0, !0, !1, !0) || typeof s > "u" && j(e, n + 1, null, !0, !0, !1, !0)) && ((!i || l !== "") && (l += en(e, n)), e.dump && he === e.dump.charCodeAt(0) ? l += "-" : l += "- ", l += e.dump);
+    s = r[o], e.replacer && (s = e.replacer.call(r, String(o), s)), (j(e, n + 1, s, !0, !0, !1, !0) || typeof s > "u" && j(e, n + 1, null, !0, !0, !1, !0)) && ((!i || l !== "") && (l += en(e, n)), e.dump && pe === e.dump.charCodeAt(0) ? l += "-" : l += "- ", l += e.dump);
   e.tag = t, e.dump = l || "[]";
 }
 function xt(e, n, r) {
@@ -1685,7 +1684,7 @@ function Ct(e, n, r, i) {
   else if (e.sortKeys)
     throw new O("sortKeys must be a boolean or a function");
   for (u = 0, s = o.length; u < s; u += 1)
-    m = "", (!i || l !== "") && (m += en(e, n)), c = o[u], f = r[c], e.replacer && (f = e.replacer.call(r, c, f)), j(e, n + 1, c, !0, !0, !0) && (a = e.tag !== null && e.tag !== "?" || e.dump && e.dump.length > 1024, a && (e.dump && he === e.dump.charCodeAt(0) ? m += "?" : m += "? "), m += e.dump, a && (m += en(e, n)), j(e, n + 1, f, !0, a) && (e.dump && he === e.dump.charCodeAt(0) ? m += ":" : m += ": ", m += e.dump, l += m));
+    m = "", (!i || l !== "") && (m += en(e, n)), c = o[u], f = r[c], e.replacer && (f = e.replacer.call(r, c, f)), j(e, n + 1, c, !0, !0, !0) && (a = e.tag !== null && e.tag !== "?" || e.dump && e.dump.length > 1024, a && (e.dump && pe === e.dump.charCodeAt(0) ? m += "?" : m += "? "), m += e.dump, a && (m += en(e, n)), j(e, n + 1, f, !0, a) && (e.dump && pe === e.dump.charCodeAt(0) ? m += ":" : m += ": ", m += e.dump, l += m));
   e.tag = t, e.dump = l || "{}";
 }
 function Fn(e, n, r) {
@@ -2280,7 +2279,7 @@ function Ao(e, n, r) {
   return i != null && i.isValid ? i : null;
 }
 const go = /^[a-z]$/, xo = /^[a-z]$/, Co = 5;
-var ie, R, ge, P, q, xe, Ce, we, le, ve, ye, Ee, G, Ae, De, be, ln, W, ae, Q, fe, Se, tn, Me, Be, Te, je, k, $, U, ee, te, Le, He, Vr, Pe, qr;
+var ie, R, xe, P, q, Ce, we, ve, le, ye, Ee, Ae, G, be, De, Se, ln, W, ae, Q, fe, Te, tn, Me, Be, _e, je, k, $, U, ee, te, Le, He, Vr, Pe, qr;
 class wo {
   //////////////////////////
   //// Lifecycle methods
@@ -2290,12 +2289,12 @@ class wo {
     //// Private methods
     //////////////////////////
     // Accessor for document associated with DOM
-    v(this, be);
+    v(this, Se);
     // Accessors for DOM parent/placeholder elements
     v(this, W);
     v(this, Q);
     // Common logic for CrosswordController constructor and loadCrosswordSource()
-    v(this, Se);
+    v(this, Te);
     /**
      * **#stateChange**: Publish an event to the listeners subscribed to _onStateChange_.
      * @param {*} eventName The name of the event to be published
@@ -2313,18 +2312,18 @@ class wo {
     v(this, Pe);
     v(this, ie, []);
     v(this, R, new mn());
-    v(this, ge, void 0);
+    v(this, xe, void 0);
     v(this, P, void 0);
     v(this, q, { clue: null, cell: null });
-    v(this, xe, void 0);
     v(this, Ce, void 0);
     v(this, we, void 0);
-    v(this, le, {});
     v(this, ve, void 0);
-    v(this, ye, ni());
-    v(this, Ee, []);
+    v(this, le, {});
+    v(this, ye, void 0);
+    v(this, Ee, ni());
+    v(this, Ae, []);
     v(this, G, void 0);
-    v(this, Ae, !1);
+    v(this, be, !1);
     // Events published by the CrosswordController
     v(this, De, [
       "cellRevealed",
@@ -2400,11 +2399,11 @@ class wo {
         d(
           this.controllerEventNames.includes(i),
           `event [${i}] is not a CrosswordController event.`
-        ), p(this, Ee).push(p(this, ye).subscribe(i, r));
+        ), p(this, Ae).push(p(this, Ee).subscribe(i, r));
       });
     });
     // Helper for multi-segment current clue
-    v(this, Te, (n) => n && (n === this.currentClue.previousClueSegment || n === this.currentClue.nextClueSegment));
+    v(this, _e, (n) => n && (n === this.currentClue.previousClueSegment || n === this.currentClue.nextClueSegment));
     v(this, je, (n) => {
       const r = (s, c) => {
         c !== this.currentClue && (x(
@@ -2417,7 +2416,7 @@ class wo {
         n.acrossClueLetterIndex,
         n.downClueLetterIndex
       ];
-      return [l, t].includes(this.currentClue) ? r(n, this.currentClue) : (l ? !t : t) ? r(n, l ?? t) : p(this, Te).call(this, l) ? r(n, l) : p(this, Te).call(this, t) ? r(n, t) : r(n, u === 0 && o !== 0 ? t : l), this.currentClue !== i;
+      return [l, t].includes(this.currentClue) ? r(n, this.currentClue) : (l ? !t : t) ? r(n, l ?? t) : p(this, _e).call(this, l) ? r(n, l) : p(this, _e).call(this, t) ? r(n, t) : r(n, u === 0 && o !== 0 ? t : l), this.currentClue !== i;
     });
     x("CrosswordController constructor"), d(
       n == null ? void 0 : n.width,
@@ -2428,12 +2427,12 @@ class wo {
     ), d(
       !i || i.ownerDocument,
       "[domCluesParentElement] argument is not a DOM element"
-    ), D(this, Ce, r), D(this, xe, i), this.setKeyboardEventBindings([po, mo]), D(this, Ae, E(this, Se, tn).call(this, n)), this.isValid && p(this, Me).call(this);
+    ), D(this, we, r), D(this, Ce, i), this.setKeyboardEventBindings([po, mo]), D(this, be, E(this, Te, tn).call(this, n)), this.isValid && p(this, Me).call(this);
   }
   //  Completely cleans up the crossword.
   destroy() {
     var n, r;
-    D(this, R, null), D(this, P, null), (n = p(this, W, ae)) == null || n.removeChild(this.gridView), (r = p(this, Q, fe)) == null || r.removeChild(this.cluesView), p(this, Ee).forEach((i) => {
+    D(this, R, null), D(this, P, null), (n = p(this, W, ae)) == null || n.removeChild(this.gridView), (r = p(this, Q, fe)) == null || r.removeChild(this.cluesView), p(this, Ae).forEach((i) => {
       i.remove();
     }), p(this, ie).forEach((i) => {
       const { element: l, eventName: t, handler: o } = i;
@@ -2487,7 +2486,7 @@ class wo {
   //// Public property accessors
   ////////////////////////////////
   get isValid() {
-    return p(this, Ae);
+    return p(this, be);
   }
   // Accessors for public property currentCell
   get currentCell() {
@@ -2512,11 +2511,11 @@ class wo {
   }
   // Accessor for public property gridView
   get gridView() {
-    return p(this, we);
+    return p(this, ve);
   }
   // Accessor for public property cluesView
   get cluesView() {
-    return p(this, ge);
+    return p(this, xe);
   }
   // Accessor for addEventsListener - public event publisher
   get addEventsListener() {
@@ -2528,11 +2527,11 @@ class wo {
   }
   // Accessors for public property lastMoveEvent
   get lastMoveEvent() {
-    return p(this, ve);
+    return p(this, ye);
   }
   set lastMoveEvent(n) {
     const r = n.toLowerCase();
-    d(["click", "focus"].includes(r), `unknown event: ${n}`), D(this, ve, r);
+    d(["click", "focus"].includes(r), `unknown event: ${n}`), D(this, ye, r);
   }
   // Accessor for public property userEventHandlerIds
   get userEventHandlerIds() {
@@ -2559,7 +2558,7 @@ class wo {
   loadCrosswordSource(n, r, i = "") {
     d(n, "[mimeType] is undefined or null"), d(r, "[crosswordSourceText] is undefined or null"), x(`loadCrosswordSource: ${n} ${i}`);
     const l = Yr(n, r);
-    return l ? E(this, Se, tn).call(this, l) : (x(
+    return l ? E(this, Te, tn).call(this, l) : (x(
       `loadCrosswordSource: invalid crossword definition "${i}"`,
       "error"
     ), !1);
@@ -2621,24 +2620,24 @@ class wo {
     x("cleanCrossword"), xi(this), E(this, k, $).call(this, "crosswordCleaned", this.model);
   }
 }
-ie = new WeakMap(), R = new WeakMap(), ge = new WeakMap(), P = new WeakMap(), q = new WeakMap(), xe = new WeakMap(), Ce = new WeakMap(), we = new WeakMap(), le = new WeakMap(), ve = new WeakMap(), ye = new WeakMap(), Ee = new WeakMap(), G = new WeakMap(), Ae = new WeakMap(), De = new WeakMap(), be = new WeakSet(), ln = function() {
+ie = new WeakMap(), R = new WeakMap(), xe = new WeakMap(), P = new WeakMap(), q = new WeakMap(), Ce = new WeakMap(), we = new WeakMap(), ve = new WeakMap(), le = new WeakMap(), ye = new WeakMap(), Ee = new WeakMap(), Ae = new WeakMap(), G = new WeakMap(), be = new WeakMap(), De = new WeakMap(), Se = new WeakSet(), ln = function() {
   return p(this, W, ae).ownerDocument;
 }, W = new WeakSet(), ae = function() {
-  return p(this, Ce);
+  return p(this, we);
 }, Q = new WeakSet(), fe = function() {
-  return p(this, xe);
-}, Se = new WeakSet(), tn = function(n) {
+  return p(this, Ce);
+}, Te = new WeakSet(), tn = function(n) {
   var i;
   const r = no(n);
-  return r ? (this.model && (p(this, W, ae).removeChild(this.gridView), (i = p(this, Q, fe)) == null || i.removeChild(this.cluesView), D(this, R, new mn())), D(this, P, r), D(this, we, ii(
-    p(this, be, ln),
+  return r ? (this.model && (p(this, W, ae).removeChild(this.gridView), (i = p(this, Q, fe)) == null || i.removeChild(this.cluesView), D(this, R, new mn())), D(this, P, r), D(this, ve, ii(
+    p(this, Se, ln),
     this.model,
     p(this, R)
   )), p(this, R).modelCells.filter((l) => l.light).forEach((l) => {
     E(this, Pe, qr).call(this, l.cellElement), E(this, He, Vr).call(this, this.cellElement(l));
-  }), p(this, W, ae).appendChild(this.gridView), p(this, Q, fe) && (D(this, ge, ri(p(this, be, ln), this)), p(this, Q, fe).appendChild(this.cluesView)), this.currentClue = this.model.acrossClues.headSegments[0], E(this, k, $).call(this, "crosswordLoaded", n), !0) : (x("#bindDefinition: crosswordModel creation failed", "error"), !1);
-}, Me = new WeakMap(), Be = new WeakMap(), Te = new WeakMap(), je = new WeakMap(), k = new WeakSet(), $ = function(n, r) {
-  x(`stateChange: ${n}`), p(this, ye).publish(n, r);
+  }), p(this, W, ae).appendChild(this.gridView), p(this, Q, fe) && (D(this, xe, ri(p(this, Se, ln), this)), p(this, Q, fe).appendChild(this.cluesView)), this.currentClue = this.model.acrossClues.headSegments[0], E(this, k, $).call(this, "crosswordLoaded", n), !0) : (x("#bindDefinition: crosswordModel creation failed", "error"), !1);
+}, Me = new WeakMap(), Be = new WeakMap(), _e = new WeakMap(), je = new WeakMap(), k = new WeakSet(), $ = function(n, r) {
+  x(`stateChange: ${n}`), p(this, Ee).publish(n, r);
 }, U = new WeakSet(), ee = function(n, r) {
   d(
     this.controllerEventNames.includes(n),
