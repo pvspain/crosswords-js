@@ -3,9 +3,11 @@
 const isTruthy = (arg) => !!arg;
 const isNumber = (arg) => typeof arg === 'number';
 const isString = (arg) => typeof arg === 'string';
+const isBoolean = (arg) => typeof arg === 'boolean';
 const isArray = (arg) => Array.isArray(arg);
 const isObject = (arg) =>
-  isTruthy(arg) && !(isNumber(arg) || isString(arg) || isArray(arg));
+  isTruthy(arg) &&
+  !(isNumber(arg) || isString(arg) || isBoolean(arg) || isArray(arg));
 
 /**
  * **addClass** - add a [CSS](https://en.wikipedia.org/wiki/CSS) class to a
@@ -165,7 +167,7 @@ const toHexString = (obj) => {
 
 // module scope variable to toggle log tracing
 let tracingEnabled = false;
-let tracingThreshold = null;
+let tracingDisplay;
 const tracingConfig = { levels: ['log', 'warn', 'error'] };
 if (typeof window === 'undefined') {
   tracingConfig.handles = {
@@ -179,10 +181,13 @@ if (typeof window === 'undefined') {
  * **tracing** - enable or disable console logging
  * @param {*} enabled logging is on/off
  */
-const tracing = (enabled, threshold = 'log') => {
+const tracing = (enabled, options = { threshold: 'log', timestamp: false }) => {
   tracingEnabled = !!enabled;
   if (tracingEnabled) {
-    tracingThreshold = tracingConfig.levels.indexOf(threshold);
+    tracingDisplay = {
+      threshold: tracingConfig.levels.indexOf(options.threshold),
+      timestamp: options.timestamp,
+    };
   }
 };
 
@@ -199,14 +204,17 @@ const trace = (message, action = 'log') => {
 
   if (
     tracingEnabled &&
-    typeof tracingThreshold === 'number' &&
-    tracingConfig.levels.indexOf(action) >= tracingThreshold
+    typeof tracingDisplay?.threshold === 'number' &&
+    tracingConfig.levels.indexOf(action) >= tracingDisplay.threshold
   ) {
     if (typeof window !== 'undefined') {
       console[action](message);
     } else {
+      const prefix = tracingDisplay.timestamp
+        ? `${new Date().toISOString()} `
+        : '';
       tracingConfig.handles[action].write(
-        `${action.toUpperCase()}: ${message}\n`,
+        prefix.concat(`${action.toUpperCase()}: ${message}\n`),
       );
     }
   }
@@ -262,6 +270,7 @@ export {
   eid,
   first,
   isArray,
+  isBoolean,
   isNumber,
   isObject,
   isString,

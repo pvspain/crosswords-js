@@ -16,6 +16,7 @@ import {
   ecs,
   eid,
   isArray,
+  isBoolean,
   isNumber,
   isObject,
   isString,
@@ -29,6 +30,7 @@ const helpers = {
   ecs, // DOM helper, wrapper for document.getElementByClass()
   eid, // DOM helper, wrapper for document.getElementById()
   isArray,
+  isBoolean,
   isNumber,
   isObject,
   isString,
